@@ -1,6 +1,8 @@
 #include "Weapon.h"
 #include <iostream>
 
+#include "Inventory.h"
+
 
 Weapon::Weapon(const std::string& name, const WeaponType type, const int damage) : Damage(damage), Type(type)
 {
@@ -9,5 +11,6 @@ Weapon::Weapon(const std::string& name, const WeaponType type, const int damage)
 
 void Weapon::Use()
 {
-	std::cout << "You use " << GetName() << " and deal " << Damage << " damage." << std::endl;
+	std::cout << "You equip " << GetName() << " which can deal up to " << Damage << " damage." << std::endl;
+	Inventory::SetEquippedWeapon(this);
 }

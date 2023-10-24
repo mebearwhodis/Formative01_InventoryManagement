@@ -13,5 +13,6 @@ public:
 	Weapon(const std::string& name, WeaponType type, int damage);
 
 	void Use() override;
+
 };
 
