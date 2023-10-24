@@ -12,8 +12,6 @@
 
 int main()
 {
-	// Check Inventory: shows the whole thing, how many you have, etc.
-
 	// Constructors for different items
 	HealthPotion hpPotion0(Potion::Small);
 	HealthPotion hpPotion1(Potion::Medium);
@@ -25,22 +23,22 @@ int main()
 	Weapon commonSword("Claymore", Weapon::Sword, 100);
 	Weapon rareAxe("Random Axe Name", Weapon::Axe, 150);
 	Map oldMap("Old map", "Queen's Gardens");
+	// Check Inventory: shows the whole thing, how many you have, etc.
 
+	if (YesNoQuestion("Do you want to load your previous inventory?")) 
+	{
+		LoadGame("mysave.json");
+	}
+	else
+	{
 
-	backpack.Add(legendaryBow, 1);
-	backpack.Add(oldMap, 1);
-
-	backpack.Add(commonSword, 5);
-	legendaryBow.Use();
-	backpack.Add(hpPotion0,9);
-	commonSword.Use();
-	backpack.Add(hpPotion2, 21);
-	backpack.Add(strPotion1, 52);
-	hpPotion2.Use();
-
-	Save(backpack,"save1.json");
-
-
+		backpack.Add(legendaryBow, 1);
+		backpack.Add(oldMap, 1);
+		backpack.Add(commonSword, 1);
+		backpack.Add(hpPotion0, 9);
+		backpack.Add(hpPotion2, 1);
+		backpack.Add(strPotion1, 52);
+	}
 	do
 	{
 		system("cls");
@@ -52,6 +50,10 @@ int main()
 		Inventory::UseItem();
 
 
-	} while (YesNoQuestion("Do you want to play again?"));
+	} while (YesNoQuestion("Do you want to use an item again?"));
+	if(YesNoQuestion("Do you want to save your inventory?"))
+	{
+		SaveGame("mysave.json");
+	}
 	exit(0);
 }

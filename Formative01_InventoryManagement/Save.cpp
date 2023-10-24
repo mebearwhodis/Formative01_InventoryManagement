@@ -1,35 +1,72 @@
 #include "Save.h"
 
 #include <fstream>
+#include <iostream>
 #include <nlohmann/json.hpp>
 
-void Save(Inventory& inv, const std::string& fileName)
-{
-	// Gets inventory and put it in a json var
-	nlohmann::json myFile;
+#include "Map.h"
+#include "Potion.h"
 
-	std::map<Item*, int> tempMap = inv.GetInventory();
-	for (auto it = tempMap.begin(); it != tempMap.end(); ++it)
-	{
-		myFile.emplace(it->first->GetName(), it->second);
+void SaveGame(const std::string& saveFileName) {
+	nlohmann::json saveData;
+
+	// Create a JSON array for storing item data
+	nlohmann::json inventoryArray = nlohmann::json::array();
+
+	for (const auto& item : backpack.GetInventory()) {
+
+		nlohmann::json itemData;
+
+		// Serialize the item and add it to the item's JSON object, then add the amount
+		itemData["Item"] = item.first->Serialize();
+		itemData["Amount"] = item.second;
+
+		// Add the object to array
+		inventoryArray.push_back(itemData);
 	}
 
-	// Delete existing save file, recreate it and put the content of myFile in it
-	remove(fileName.c_str());
-	std::ofstream outFile(fileName);
-	outFile << std::setw(4) << myFile << std::endl;
+	// Add the inventory array to the JSON object
+	saveData["Inventory"] = inventoryArray;
 
-	outFile.close();
+	// Write it to a file
+	std::ofstream saveFile(saveFileName);
+	saveFile << std::setw(1) << saveData;
+	saveFile.close();
 }
-//
-// I tried a lot of different ways but couldn't figure out how to save all the classes and derived classes so that I can then use them in the constructors. Using a map with the amount of items rather than a vector probably did not make things easier for me.
 
-//void Load()
-//{
-//	std::ifstream inFile("save1.json");
-//	for (auto& it : inFile)
-//	{
-//		backpack.Add(it.key, it.value);
-//	}
-//	inFile.close();
-//}
+void LoadGame(const std::string& saveFileName) {
+	nlohmann::json saveData;
+
+	// Read the save file and put it in a variable to then close it
+	std::ifstream saveFile(saveFileName);
+	saveFile >> saveData;
+	saveFile.close();
+
+	// Deserialize and create items for the player's inventory and get the Amount
+	for (const auto& itemData : saveData["Inventory"]) {
+		const int amount = itemData["Amount"];
+
+		// Deserialize the item properties.
+		nlohmann::json itemProperties = itemData["Item"];
+
+		// Depending on the item type, create the corresponding item
+		Item* item = nullptr;
+		if (itemProperties["Type"] == "Potion")
+		{
+			item = new Potion();
+			item->Deserialize(itemProperties);
+		}
+		else if (itemProperties["Type"] == "Weapon")
+		{
+			item = new Weapon();
+			item->Deserialize(itemProperties);
+		}
+		else if (itemProperties["Type"] == "Map")
+		{
+			item = new Map();
+			item->Deserialize(itemProperties);
+		}
+		// Add the item to the player's inventory with the specified amount
+		backpack.Add(*item, amount);
+	}
+}

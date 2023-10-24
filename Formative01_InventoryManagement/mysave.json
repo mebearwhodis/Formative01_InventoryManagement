@@ -1,0 +1,57 @@
+{
+ "Inventory": [
+  {
+   "Amount": 6,
+   "Item": {
+    "Name": "Small health potion",
+    "Size": "Small",
+    "SubType": "Health",
+    "Type": "Potion"
+   }
+  },
+  {
+   "Amount": 1,
+   "Item": {
+    "Name": "Large health potion",
+    "Size": "Large",
+    "SubType": "Health",
+    "Type": "Potion"
+   }
+  },
+  {
+   "Amount": 52,
+   "Item": {
+    "Name": "Medium strength potion",
+    "Size": "Medium",
+    "SubType": "Strength",
+    "Type": "Potion"
+   }
+  },
+  {
+   "Amount": 1,
+   "Item": {
+    "Damage": 250,
+    "Name": "Thori'dal",
+    "SubType": "Bow",
+    "Type": "Weapon"
+   }
+  },
+  {
+   "Amount": 1,
+   "Item": {
+    "Damage": 100,
+    "Name": "Claymore",
+    "SubType": "Sword",
+    "Type": "Weapon"
+   }
+  },
+  {
+   "Amount": 1,
+   "Item": {
+    "Area": "Queen's Gardens",
+    "Name": "Old map",
+    "Type": "Map"
+   }
+  }
+ ]
+}

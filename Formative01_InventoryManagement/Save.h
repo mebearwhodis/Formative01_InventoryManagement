@@ -1,4 +1,5 @@
 #pragma once
 #include "Inventory.h"
 
-void Save(Inventory& inv, const std::string& fileName);
+void SaveGame(const std::string& saveFileName);
+void LoadGame(const std::string& saveFileName);

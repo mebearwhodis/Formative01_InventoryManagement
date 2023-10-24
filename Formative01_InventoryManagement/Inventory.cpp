@@ -5,7 +5,10 @@
 #include "Weapon.h"
 
 Inventory backpack;
-Weapon* Inventory::EquippedWeapon = nullptr;
+
+// By default, a knife is equipped - could also have checked if something is equipped or not
+Weapon baseKnife("A kitchen knife", Weapon::Sword, 1);
+Weapon* Inventory::EquippedWeapon = &baseKnife;
 
 // Adds the item and the amount to the Inventory map
 void Inventory::Add(Item& item, int amount)
