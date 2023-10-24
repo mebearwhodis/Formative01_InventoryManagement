@@ -1,6 +1,8 @@
 #include "Map.h"
 #include <iostream>
 
+#include "Inventory.h"
+
 Map::Map(const std::string& name, const std::string& area) : Area(area)
 {
 	SetName(name);
@@ -9,10 +11,14 @@ Map::Map(const std::string& name, const std::string& area) : Area(area)
 }
 
 Map::Map()
-= default;
+{
+	SetDescription("Yup. That's a map. But where's the north?");
+}
 
 void Map::Use()
 {
+	system("cls");
+	backpack.Display();
 	std::cout << "You use your " << GetName() << " and reveal the " << Area << " area." << std::endl;
 }
 

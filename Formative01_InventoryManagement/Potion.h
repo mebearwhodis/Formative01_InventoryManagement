@@ -15,7 +15,7 @@ private:
 	std::string SubType;
 	PotionSize Size;
 	std::string Stat;
-	std::map<PotionSize, int> SizeValue{};
+	std::map<PotionSize, int> SizeValue;
 
 public:
 
@@ -32,6 +32,7 @@ public:
 	void SetStat(const std::string& stat) { Stat = stat; }
 
 	std::map<PotionSize, int> GetSizeValue() { return SizeValue; }
+	PotionSize GetSize() const { return Size; }
 	void SetSizeValue(const std::map<PotionSize, int>& sizeValue) { SizeValue = sizeValue; }
 
 	nlohmann::json Serialize() final;

@@ -4,8 +4,10 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 
+#include "HealthPotion.h"
 #include "Map.h"
 #include "Potion.h"
+#include "StrengthPotion.h"
 
 void SaveGame(const std::string& saveFileName) {
 	nlohmann::json saveData;
@@ -53,8 +55,16 @@ void LoadGame(const std::string& saveFileName) {
 		Item* item = nullptr;
 		if (itemProperties["Type"] == "Potion")
 		{
-			item = new Potion();
-			item->Deserialize(itemProperties);
+			if(itemProperties["SubType"] == "Health")
+			{
+				item = new HealthPotion();
+				item->Deserialize(itemProperties);
+			}
+			else if(itemProperties["SubType"] == "Strength")
+			{
+				item = new StrengthPotion();
+				item->Deserialize(itemProperties);
+			}
 		}
 		else if (itemProperties["Type"] == "Weapon")
 		{

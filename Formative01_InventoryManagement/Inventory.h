@@ -26,3 +26,4 @@ public:
 };
 
 extern Inventory backpack;
+extern std::map<int, Item*> displayMap;

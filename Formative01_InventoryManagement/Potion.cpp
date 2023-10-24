@@ -17,8 +17,12 @@ Potion::Potion()
 
 void Potion::Use()
 {
-	std::cout << "You use a " << GetName() << " and gain " << SizeValue.at(Size) << " " << Stat << std::endl;
+
+	system("cls");
 	backpack.Add(*this, -1);
+	backpack.Display();
+	const int statAmount = this->GetSizeValue().at(this->GetSize());
+	std::cout << "You use a " << this->GetName() << " and gain " << statAmount << " " << this->GetStat() << "." << std::endl;
 }
 
 nlohmann::json Potion::Serialize()

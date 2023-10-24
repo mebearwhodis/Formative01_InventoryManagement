@@ -12,12 +12,17 @@ Weapon::Weapon(const std::string& name, const WeaponType subType, const int dama
 }
 
 Weapon::Weapon()
-= default;
+{
+	SetDescription("Anything can be a weapon if you try hard enough.");
+}
 
 void Weapon::Use()
 {
-	std::cout << "You equip " << GetName() << " which can deal up to " << Damage << " damage." << std::endl;
+	system("cls");
+
 	Inventory::SetEquippedWeapon(this);
+	backpack.Display();
+	std::cout << "You equip " << GetName() << " which can deal up to " << Damage << " damage." << std::endl;
 }
 
 nlohmann::json Weapon::Serialize()
