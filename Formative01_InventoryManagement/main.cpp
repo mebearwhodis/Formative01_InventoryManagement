@@ -1,7 +1,5 @@
 // main.cpp : This file contains the 'main' function. Program execution begins and ends there.
 
-#include <iostream>
-
 #include "HealthPotion.h"
 #include "Map.h"
 #include "Save.h"
